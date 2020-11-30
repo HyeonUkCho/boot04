@@ -1,14 +1,36 @@
 package com.example.boot04.boot04.controller;
 
+import com.example.boot04.boot04.domain.Member;
+import com.example.boot04.boot04.domain.MemberVO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
 public class SampleController {
 
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello World";
+    @GetMapping("/sample1")
+    public void sample1(Model model) {
+        model.addAttribute("greeting", "안녕하세요.");
+    }
+
+    @GetMapping("/sample2")
+    public void sample2(Model model) {
+        MemberVO memberVO = new MemberVO(123, "u00", "p00", "honggildong", new Timestamp(System.currentTimeMillis()));
+        model.addAttribute("memberVO", memberVO);
+    }
+
+    @GetMapping("/sample3")
+    public void sample3(Model model) {
+        List<MemberVO> list = new ArrayList<>();
+
+        for(int i=0; i<10; i++) {
+            list.add(new MemberVO(123,"u0"+i, "p0"+i, "hong"+i, new Timestamp(System.currentTimeMillis())));
+        }
+        model.addAttribute("list", list);
     }
 }
